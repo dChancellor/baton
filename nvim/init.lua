@@ -70,7 +70,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  { 'folke/which-key.nvim',   opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -91,17 +91,10 @@ require('lazy').setup({
       end,
     },
   },
-
   {
-    -- Theme inspired by Atom
-    'folke/tokyonight.nvim',
+    'projekt0n/github-nvim-theme',
     priority = 1000,
     lazy = false,
-    opts = {
-      style = 'moon',
-      transparent = true,
-      comments = { italic = true }
-    }
   },
   {
     -- Set lualine as statusline
@@ -128,7 +121,22 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+      toggler = {
+        line = '<leader>cl',
+        block = '<leader>cb'
+      },
+      opleader = {
+        line = '<leader>cl',
+        block = '<leader>cb'
+      },
+      mappings = {
+        extra = false
+      }
+    }
+  },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -175,6 +183,9 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
 
+-- DCH: My settings --
+vim.wo.relativenumber = true
+vim.cmd([[autocmd FileType * set formatoptions-=cro]])
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
@@ -184,7 +195,6 @@ vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
-vim.wo.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
