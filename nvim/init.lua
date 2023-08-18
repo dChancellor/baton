@@ -92,16 +92,13 @@ require('lazy').setup({
     },
   },
   {
-    'projekt0n/github-nvim-theme',
-    priority = 1000,
-    lazy = false,
-  },
-  {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
     opts = {
       options = {
+        globalstatus = true,
+        theme = 'auto',
         icons_enabled = true,
         component_separators = '|',
         section_separators = '',
@@ -166,6 +163,22 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
+    opts = {
+      highlight = {
+        enable = true,
+        custom_captures = {
+          ["DCHJSDocKeyword"] = "DCHJSDocKeyword",
+          ["DCHJSDocKeywordDescription"] = "DCHJSDocKeywordDescription",
+          ["DCHWordType"] = "DCHImportWordType",
+          ["DCHLiteralType"] = "DCHLiteralType",
+          ["DCHTypeQueryID"] = "DCHTypeQueryID",
+          ["DCHVarDeclarations"] = "DCHVarDeclarations",
+          ["DCHJsxText"] = "DCHJsxText",
+          ["DCHSvelteReactive"] = "DCHSvelteReactive",
+          ["DCHOperator"] = "DCHOperator"
+        }
+      }
+    }
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -183,13 +196,14 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
 
--- DCH: My settings --
+-- [dch: My settings] --
+-- shows relative line numbers on the left
 vim.wo.relativenumber = true
 vim.cmd([[autocmd FileType * set formatoptions-=cro]])
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
+-- Removes bottom command line bar
+vim.cmd([[set cmdheight=0]])
 
+-- [[ Setting options ]]
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -286,7 +300,8 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'go', 'lua', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'svelte', 'yaml', 'vue', 'zig', 'sql',
+    'markdown', 'markdown_inline', 'json', 'jsdoc', 'html', 'graphql', 'dockerfile', 'css', 'c_sharp', 'bash' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
