@@ -1,25 +1,25 @@
 #!/usr/bin/env bash
 
-if [[ $# -eq 1 ]]; then
-    selected=$1
+PERSONAL_DIRS="$HOME/chancellor.tech $HOME/scratch.pad $HOME/shopkeep.dev $HOME/grandparobot.dev $HOME/setup" 
+WORK_DIRS=""
+
+if [[ "$HOSTNAME" == "indeed" ]]; then
+    SEARCH_DIRS="$WORK_DIRS"
 else
-    selected=$(find ~/chancellor.tech -mindepth 1 -maxdepth 1 -type d | fzf)
+    SEARCH_DIRS="$PERSONAL_DIRS"
 fi
+
+selected=$(find $SEARCH_DIRS -mindepth 1 -maxdepth 1 -type d | fzf)
 
 if [[ -z $selected ]]; then
     exit 0
 fi
 
 selected_name=$(basename "$selected" | tr . _)
-tmux_running=$(pgrep tmux)
 
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+if [[ -z $TMUX ]]; then
     tmux new-session -s $selected_name -c $selected
     exit 0
 fi
 
-if ! tmux has-session -t=$selected_name 2> /dev/null; then
-    tmux new-session -ds $selected_name -c $selected
-fi
-
-tmux switch-client -t $selected_name
+tmux neww -n $selected_name -c $selected

@@ -1,0 +1,49 @@
+function mkcd() {
+	mkdir $1 && cd $1
+}
+function gwpull {
+	current_dir=$(pwd)
+	check_dir=$current_dir
+	while [[ "$check_dir" != "/" ]]; do
+		if [[ -d "$check_dir/primary" ]] || [[ -d "$check_dir/master" ]]; then
+			# Check which directory exists and change to that directory.
+			if [[ -d "$check_dir/primary" ]]; then
+				cd $check_dir/primary
+			else
+				cd $check_dir/master
+			fi
+			git pull
+			cd $current_dir
+			break
+		fi
+		check_dir=$(dirname "$check_dir")
+	done
+}
+function gwprune() {
+	command=$1
+	for worktree in $(git worktree list --porcelain | grep 'worktree ' | awk '{print $2}'); do
+		printf "\n $worktree\n"
+		primary=$(git --git-dir $(git rev-parse --git-common-dir) symbolic-ref --short HEAD)
+		printf "\n $primary\n"
+		if [ "$worktree" != "$(git --git-dir $(git rev-parse --git-common-dir) symbolic-ref --short HEAD)" ]; then
+			printf "\n Removing $worktree ...\n"
+			if [ "$command" == "force" ]; then
+				git worktree remove $worktree --force
+			else
+				git worktree remove $worktree
+			fi
+		else
+			printf "\n Skipping current primary worktree: $worktree\n"
+		fi
+	done
+}
+###########
+# Nav Functions
+###########
+function up() {
+	levels=$1
+	while [ "$levels" -gt "0" ]; do
+		cd ..
+		levels=$(($levels - 1))
+	done
+}
