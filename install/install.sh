@@ -1,5 +1,6 @@
 sudo apt-get update
 sudo apt-get upgrade
+sudo timedatectl set-timezone America/Chicago
 
 # Install Neovim
 sudo apt-get install ninja-build gettext cmake unzip curl

@@ -1,4 +1,4 @@
-alias tmux='tmux -f "$CONFIGS_PATH"/tmux.conf'
+alias tmux='tmux -f "$CONFIGS_PATH"/tmux/tmux.conf'
 
 alias ns='npm start'
 alias start='npm start'
