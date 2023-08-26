@@ -1,0 +1,6 @@
+[submodule "nvim"]
+	path = nvim
+	url = git@github.com:dChancellor/nvim.git
+[submodule "Alexandria"]
+	path = Alexandria
+	url = git@github.com:dChancellor/Alexandria.git
