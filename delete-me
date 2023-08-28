@@ -1,0 +1,49 @@
+
+# Colors
+set -goq @color-main-bg "#1c1c1c"
+set -goq @color-purple "#181325"
+set -goq @color-lightgrey "#bfb3e6"
+
+set -goq @color-jade-1 "#00704b"
+set -goq @color-jade-2 "#094e37"
+set -goq @color-jade-3 "#093426"
+
+set -goq @color-gold-1 "#ffae57"
+set -goq @color-gold-2 "#c07a30"
+set -goq @color-gold-3 "#a87a48"
+
+# Info formats
+set -goq @pathname-format "#(basename #{pane_current_path})"
+set -goq @clock-format "%H:%M"
+set -goq @hostname-format "#H"
+set -goq @window-format "#W"
+
+# Current Window
+set -gF status-style "fg=#{@color-lightgrey},bg=#{@color-purple},nobold"
+set -gF window-status-format "#{@window-format}"
+set -g @status-current-window-style "#[fg=#{@color-purple},bg=#{@color-gold-1}]"
+set -g @status-current-window-prefix "#[fg=#{@color-gold-3},bg=#{@color-gold-1}]"
+set -g @status-current-window-suffix "#[fg=#{@color-gold-1}, bg=#{@color-gold-3}]"
+set -gF window-status-current-format "#{@status-current-window-prefix}#{@status-current-window-style} #{@window-format} #{@status-current-window-suffix}"
+
+# Window list
+set -g @status-window-style "#[fg=#{@color-purple},bg=#{@color-gold-3}]"
+set -g @status-window-suffix "#[fg=#{@color-gold-3},bg=#{@color-gold-3}]#{?#{==:#{window_index},#{session_windows}},#[bg=#{@color-purple} fg=#{@color-gold-3}],}"
+set -gF window-status-format "#{@status-window-style} #{@window-format} #{@status-window-suffix}"
+
+set -gF window-status-separator ""
+
+# justify center for window list
+set -gF status-justify left
+
+# Current directory (ideally ticket number or project name)
+set -g status-left-length 400
+set -g @status-left-style "#[fg=#{@color-purple},bg=#{@color-jade-1}]#{?client_prefix,#[bg=#{@color-gold-1}],}"
+set -g @status-left-arrow-1 "#[fg=#{@color-jade-1},bg=#{@color-jade-2}]#{?client_prefix,#[fg=#{@color-gold-1} bg=#{@color-gold-2}],}"
+set -g @status-left-arrow-2 "#[fg=#{@color-jade-2},bg=#{@color-jade-3}]#{?client_prefix,#[fg=#{@color-gold-2} bg=#{@color-gold-3}],}"
+set -g @status-left-arrow-3 "#[fg=#{@color-jade-3},bg=#{@color-gold-3}]#{?client_prefix,#[fg=#{@color-gold-3} bg=#{@color-purple}],}"
+set -gF status-left "#{@status-left-style} #{@pathname-format} #{@status-left-arrow-1} #{@status-left-arrow-2} #{@status-left-arrow-3}"
+
+# Clock
+set -gF status-right ""
+et -g status-right '#[fg=colour7, bg=colour241]#{?client_prefix,#[bg=colour167],} %H:%M'
