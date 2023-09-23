@@ -1,16 +1,39 @@
+###
+# Tmux aliases
+###
 alias tmux='tmux -f "$CONFIGS_PATH"/tmux/tmux.conf'
+function ta() {
+	if [ -z "$1"]; then
+		tmux attach -t default_session_name
+	else
+		tmux attach -t "$1"
+	fi
+}
 
+###
+# Npm aliases
+###
 alias ns='npm start'
 alias start='npm start'
 alias nr='npm run'
 alias run='npm run'
 alias nis='npm i -S'
+
+###
+# Navigation aliases
+###
 alias l="ls"      # List files in current directory
 alias ll="ls -al" # List all files in current directory in long list format
-alias vi="nvim ."
 
-############
-# Git Aliases
-############
+###
+# Other aliases
+###
+alias vi="nvim"
+
+###
+# Git aliases
+###
 alias gadd="git add ."
 alias gcommit="git commit -m"
+
+

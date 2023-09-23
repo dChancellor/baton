@@ -11,6 +11,7 @@ export HISTFILESIZE=10000
 
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
+bind -x '"\C-f": ~/.config/dch/scripts/tmux-session-maker.sh'
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
