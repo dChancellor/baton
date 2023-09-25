@@ -4,6 +4,7 @@
 [submodule "Alexandria"]
 	path = Alexandria
 	url = git@github.com:dChancellor/Alexandria.git
+	branch = main
 [submodule "install/neovim"]
 	path = install/neovim
 	url = https://github.com/neovim/neovim
