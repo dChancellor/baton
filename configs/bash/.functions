@@ -1,5 +1,85 @@
+###########
+# Tmux Functions
+###########
+function ta() {
+	if [ -z "$1"]; then
+		tmux attach -t default_session_name
+	else
+		tmux attach -t "$1"
+	fi
+}
+
+###########
+# Nav Functions
+###########
 function mkcd() {
 	mkdir $1 && cd $1
+}
+function up() {
+	levels=$1
+	while [ "$levels" -gt "0" ]; do
+		cd ..
+		levels=$(($levels - 1))
+	done
+}
+function fuzzyfind() {
+	PERSONAL_DIRS="$HOME/chancellor.tech $HOME/scratch.pad $HOME/shopkeep.dev $HOME/grandparobot.dev $HOME/setup" 
+	WORK_DIRS="$HOME/dev"
+
+	if [[ "$HOSTNAME" == "indeed" ]]; then
+		SEARCH_DIRS="$WORK_DIRS"
+	else
+		SEARCH_DIRS="$PERSONAL_DIRS"
+	fi
+
+	selected=$(find $SEARCH_DIRS -mindepth 1 -maxdepth 4 -type d -not -path '*/.legacy/*' -not -name '.legacy'  -not -path '*/worktrees/*'| fzf)
+
+	if [[ -z "$selected" ]]; then
+    exit 0
+	fi	
+
+	echo "$selected"  # Echo the selected directory for "return value" purposes
+}
+function fuzzynavigate(){
+	selected_dir=$(fuzzyfind)
+	cd "$selected_dir"
+}
+###########
+# Git Functions
+###########
+function gwnew() {
+    local worktree_name=$1
+
+    # Function to navigate to the parent directory and check if it's in a Git repo
+    upsearch() {
+        if [[ -d "$1" ]]; then
+            # Check if the directory is part of a Git repository
+            if git rev-parse --git-dir > /dev/null 2>&1; then
+                cd "$1"
+                return 0
+            else
+                echo "Error: Reached a directory that is not part of a Git repository."
+                return 1
+            fi
+        elif [[ / == "$PWD" ]]; then
+            echo "Error: Reached root without finding a Git repository."
+            return 1
+        else
+            cd ..
+            upsearch "$1"
+        fi
+    }
+
+    # Start the search for 'dholtzman' directory
+    upsearch "dholtzman"
+
+    if [[ $? -ne 0 ]]; then
+        return 1
+    fi
+
+    # Add the worktree
+    git worktree add "$worktree_name"
+	cd "$worktree_name"
 }
 function gwpull {
 	current_dir=$(pwd)
@@ -35,15 +115,5 @@ function gwprune() {
 		else
 			printf "\n Skipping current primary worktree: $worktree\n"
 		fi
-	done
-}
-###########
-# Nav Functions
-###########
-function up() {
-	levels=$1
-	while [ "$levels" -gt "0" ]; do
-		cd ..
-		levels=$(($levels - 1))
 	done
 }

@@ -1,0 +1,27 @@
+###########
+# Indeed Functions
+###########
+function cvm() {
+    local ssh_args=""
+    while getopts "soe" option; do
+        case "${option}" in
+			# Storybook
+            s)
+                ssh_args+=" -L 6006:localhost:6006"
+                ;;
+			# Onehost
+            o)
+                ssh_args+=" -L 3002:localhost:3002"
+                ;;
+            e)
+		ssh_args+=" -L 3001:localhost:3001"
+		;;
+            *)
+                echo "Invalid option: -${option}" >&2
+                return 1
+                ;;
+        esac
+    done
+    shift $((OPTIND -1))
+    ssh ${ssh_args} dholtzman@dholtzman.cvm.indeed.net
+}

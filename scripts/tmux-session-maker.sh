@@ -1,15 +1,7 @@
 #!/usr/bin/env bash
 
-PERSONAL_DIRS="$HOME/chancellor.tech $HOME/scratch.pad $HOME/shopkeep.dev $HOME/grandparobot.dev $HOME/setup" 
-WORK_DIRS=""
-
-if [[ "$HOSTNAME" == "indeed" ]]; then
-    SEARCH_DIRS="$WORK_DIRS"
-else
-    SEARCH_DIRS="$PERSONAL_DIRS"
-fi
-
-selected=$(find $SEARCH_DIRS -mindepth 1 -maxdepth 1 -type d | fzf)
+source $CONFIGS_PATH/bash/.functions
+selected="$(fuzzyfind)"
 
 if [[ -z "$selected" ]]; then
     exit 0
@@ -22,6 +14,12 @@ if [[ -z $TMUX ]]; then
     tmux new-window -n $selected_name -c $selected -n run
     tmux new-window -n $selected_name -c $selected -n test
     tmux new-window -n $selected_name -c $selected -n storybook
+
+    tmux send-keys -t $selected_name:1 'vi' C-m
+    tmux send-keys -t $selected_name:2 'npm run start' C-m
+    tmux send-keys -t $selected_name:3 'npm run test' C-m
+    tmux send-keys -t $selected_name:4 'npm run storybook' C-m
+
     tmux attach -t $selected_name:1
     exit 0
 fi
