@@ -1,5 +1,7 @@
 # Function to install packages on Ubuntu
 install_ubuntu() {
+    cd ..
+    git submodule update --init --recursive
     sudo apt-get update
     sudo apt-get upgrade
     sudo timedatectl set-timezone America/Chicago

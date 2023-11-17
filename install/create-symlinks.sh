@@ -7,6 +7,7 @@ create_symlink() {
     local source_target="$1"
     local link_target="${2/#\~/$HOME}"
 
+
     # Expand the source and link target to their absolute paths
     if [[ -e "$source_target" ]]; then
         source_target="$(realpath "$source_target")"
@@ -14,7 +15,6 @@ create_symlink() {
         echo "Error: Source target '$source_target' does not exist."
         return 1
     fi
-    link_target="$(realpath -m "$link_target")"
 
     # Check if the source target is a directory
     if [[ -d "$source_target" ]]; then
@@ -30,7 +30,7 @@ create_symlink() {
     # Check if the target is a symlink or a regular file
     if [ -L "$link_target" ] || [ -f "$link_target" ]; then
         # Check if the content from the source file is already in the target file
-        if ! grep -qF "$content_to_append" "$link_target"; then
+        if ! grep -qF "# Added by DCH setup file" "$link_target"; then
             echo "$link_target exists and specific content not found - appending content..."
             # Append a newline character if the file does not end with one
             [[ $(tail -c1 "$link_target" | wc -l) -eq 0 ]] && echo "" >> "$link_target"
@@ -53,6 +53,7 @@ create_symlink() {
 source "../configs/bash/.vars" # Load common variables
 
 create_symlink "../configs/bash/.profile" "~/.profile"
+source ~/.profile
 create_symlink "../configs/" "$CONFIGS_PATH"
 create_symlink "../nvim/" "~/.config/nvim"
 create_symlink "../scripts/" "$SCRIPTS_PATH"
