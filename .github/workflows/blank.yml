@@ -1,16 +1,18 @@
-name: CI
+name: Deploy
 on:
   push:
     branches: [ "primary" ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        # Add runner names here
+        runner: [ lab-01, runner2, runner3 ]
     steps:
       - uses: actions/checkout@v4
-      # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
           echo Testing...
