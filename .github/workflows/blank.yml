@@ -14,4 +14,4 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Testing...
-          touch test-my-runner.log
+          touch /home/derek/test-my-runner.log
