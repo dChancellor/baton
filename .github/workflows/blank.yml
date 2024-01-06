@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         # Add runner names here
-        runner: [ lab-01, runner2, runner3 ]
+        runner: [ lab-01 ]
     steps:
       - uses: actions/checkout@v4
       - name: Run a multi-line script
