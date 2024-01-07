@@ -11,4 +11,5 @@ jobs:
       downstream_owner_name: "dchancellor-org"
       repo_name: 'setup'
       workflow_file_name: 'deploy.yml'
-    secrets: inherit
+    secrets: 
+      ORG_PAT: ${{secrets.ORG_PAT}}
