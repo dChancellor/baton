@@ -1,0 +1,16 @@
+name: Send changes downstream
+on:
+  #push:
+   # branches: [ "primary" ]
+  workflow_dispatch:
+jobs:
+  send-changes-downstream:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: shopkeepjs/github-actions/trigger-sync-event@main
+        with:
+          upstream_owner_name: "dChancellor"
+          downstream_owner_name: "dchancellor-org"
+          repo_name: 'setup'
+          workflow_file_name: 'deploy.yml'
+        secrets: inherit
