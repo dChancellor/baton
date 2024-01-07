@@ -1,4 +1,4 @@
-name: Send changes downstream
+name: Update and Deploy
 on:
   workflow_dispatch:
 jobs:
