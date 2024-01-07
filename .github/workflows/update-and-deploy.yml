@@ -1,0 +1,12 @@
+name: Send changes downstream
+on:
+  workflow_dispatch:
+jobs:
+  send-changes-downstream:
+    uses: shopkeepjs/github-actions/.github/workflows/update-and-deploy@main
+    with:
+        username: "Chancellor"
+        email: "me@chancellor.tech"
+        upstream-repo: "dChancellor/setup"
+        mozart-dir-location: "~/setup"
+    secrets: inherit
