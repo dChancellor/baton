@@ -4,27 +4,27 @@ on:
    # branches: [ "primary" ]
   workflow_dispatch:
 jobs:
-  send-changes-downstream:
-    uses: shopkeepjs/github-actions/.github/workflows/trigger-sync-event.yml@main
-    with:
-      upstream_owner_name: 'dChancellor'
-      downstream_owner_name: 'dchancellor-org'
-      repo_name: 'setup'
-      workflow_file_name: 'update-and-deploy.yml'
-    secrets: 
-      ORG_PAT: ${{secrets.ORG_PAT}}
-  # build:
-  #   runs-on: ubuntu-latest
-  #   if: github.repository_owner == 'dChancellor'
-  #   steps:
-  #     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-  #   - uses: actions/github-script@v6
-  #     with:
-  #       github-token: ${{ secrets.ORG_PAT }}
-  #       script: |
-  #         await github.rest.actions.createWorkflowDispatch({
-  #           owner: 'dchancellor-org',
-  #           repo: 'setup',
-  #           workflow_id: 'update-and-deploy.yml',
-  #           ref: 'main'
-  #         })
+  # send-changes-downstream:
+  #   uses: shopkeepjs/github-actions/.github/workflows/trigger-sync-event.yml@main
+  #   with:
+  #     upstream_owner_name: 'dChancellor'
+  #     downstream_owner_name: 'dchancellor-org'
+  #     repo_name: 'setup'
+  #     workflow_file_name: 'update-and-deploy.yml'
+  #   secrets: 
+  #     ORG_PAT: ${{secrets.ORG_PAT}}
+  build:
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'dChancellor'
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.ORG_PAT }}
+        script: |
+          await github.rest.actions.createWorkflowDispatch({
+            owner: 'dchancellor-org',
+            repo: 'setup',
+            workflow_id: 'update-and-deploy.yml',
+            ref: 'main'
+          })
