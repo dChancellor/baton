@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   send-changes-downstream:
-    uses: shopkeepjs/github-actions/.github/workflows/update-and-deploy@main
+    uses: shopkeepjs/github-actions/.github/workflows/update-and-deploy.yml@main
     with:
         username: "Chancellor"
         email: "me@chancellor.tech"
