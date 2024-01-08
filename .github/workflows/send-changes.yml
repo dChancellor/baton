@@ -1,7 +1,7 @@
 name: Send changes downstream
 on:
   push:
-   branches: [ "primary" ]
+   branches: [ "main" ]
   workflow_dispatch:
 jobs:
   send-changes:
