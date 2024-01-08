@@ -19,7 +19,12 @@ install_ubuntu() {
     # Install fzf
     "$INSTALL_PATH"/fzf/install --all
 
-    rm -rf "$INSTALL_PATH"/bin
+    # This line scares me - what is bin? When I figure it out, please add comment here why this line was needed
+    #rm -rf "$INSTALL_PATH"/bin
+
+    # Install fun cli items
+    sudo apt install cowsay
+    sudo apt install fortune-mod
 }
 
 # Function to install packages on macOS using Homebrew

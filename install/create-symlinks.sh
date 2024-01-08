@@ -1,4 +1,5 @@
 create_symlink() {
+    # If not the right amount of arguments, return
     if [[ $# -ne 2 ]]; then
         echo "Usage: create_symlink <source> <link_target>"
         return 1
@@ -14,8 +15,8 @@ create_symlink() {
         echo "Error: Source target '$source_target' does not exist."
         return 1
     fi
-    link_target="$(realpath -m "$link_target")"
-
+    #link_target="$(realpath -m "$link_target")"
+    
     # Check if the source target is a directory
     if [[ -d "$source_target" ]]; then
         echo "'$source_target' is a directory. Creating or updating symlink."
@@ -30,19 +31,17 @@ create_symlink() {
     # Check if the target is a symlink or a regular file
     if [ -L "$link_target" ] || [ -f "$link_target" ]; then
         # Check if the content from the source file is already in the target file
-        if ! grep -qF "$content_to_append" "$link_target"; then
-            echo "$link_target exists and specific content not found - appending content..."
+	local link_target_content="$(cat "$link_target")"
             # Append a newline character if the file does not end with one
             [[ $(tail -c1 "$link_target" | wc -l) -eq 0 ]] && echo "" >> "$link_target"
+	    sed -i '/# Added by DCH setup file/,/# End of DCH setup/d' ~/.profile
             # Append the comment and the contents from the source file
             {
                 echo ""
                 echo "# Added by DCH setup file"
                 echo "$content_to_append"
+		echo "# End of DCH setup"
             } >> "$link_target"
-        else
-            echo "Specific content already exists in '$link_target'. Not appending."
-        fi
     else
         echo "$link_target does not exist - creating a symlink."
         mkdir -p "$(dirname "$link_target")"
@@ -50,6 +49,7 @@ create_symlink() {
     fi
 }
 
+source "../configs/bash/.profile" #Loads DOTFILE_PATH
 source "../configs/bash/.vars" # Load common variables
 
 create_symlink "../configs/bash/.profile" "~/.profile"
