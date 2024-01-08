@@ -29,13 +29,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Push latest changes to Mozart
         run: |
-          cd ~/setup
-          # Save the name of the current branch
-          current_branch=$(git rev-parse --abbrev-ref HEAD)
-          
-          # Checkout main and pull the latest changes
-          git checkout main
-          git pull
-          
-          # Return to the original branch
-          git checkout $current_branch
+          cd ~/castle
+          ansible-playbook -i inventory.yml playbook.yml
