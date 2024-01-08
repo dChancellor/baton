@@ -1,12 +1,41 @@
 name: Update and Deploy
 on:
   workflow_dispatch:
+  
 jobs:
-  send-changes-downstream:
-    uses: shopkeepjs/github-actions/.github/workflows/update-and-deploy.yml@main
-    with:
-        username: "Chancellor"
-        email: "me@chancellor.tech"
-        upstream-repo: "dChancellor/setup"
-        mozart-dir-location: "~/setup"
-    secrets: inherit
+  merge-upstream:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up SSH Agent
+      uses: dchancellor-org/ssh-agent@master
+      with:
+        ssh-private-key: ${{ secrets.UPSTREAM_DEPLOY_KEY }}
+
+    - name: Merge upstream changes
+      run: |
+        git config user.name "Chancellor"
+        git config user.email "me@chancellor.tech"
+        git remote add upstream git@github.com:dChancellor/setup.git
+        git fetch upstream
+        git merge upstream/main -m "Merging upstream changes"
+        git push origin main
+  deploy_to_mozart:
+    needs: [merge-upstream]
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Push latest changes to Mozart
+        run: |
+          cd ~/setup
+          # Save the name of the current branch
+          current_branch=$(git rev-parse --abbrev-ref HEAD)
+          
+          # Checkout main and pull the latest changes
+          git checkout main
+          git pull
+          
+          # Return to the original branch
+          git checkout $current_branch
