@@ -7,7 +7,7 @@ jobs:
   send-changes-downstream:
     uses: shopkeepjs/github-actions/.github/workflows/trigger-sync-event.yml@main
     with:
-      upstream_owner_name: 'dChancellor2'
+      upstream_owner_name: 'dChancellor'
       downstream_owner_name: 'dchancellor-org'
       repo_name: 'setup'
       workflow_file_name: 'update-and-deploy.yml'
