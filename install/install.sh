@@ -3,10 +3,9 @@ install_ubuntu() {
     sudo apt-get update
     sudo apt-get upgrade
     sudo timedatectl set-timezone America/Chicago
-
     # Install Neovim
     sudo apt-get install ninja-build gettext cmake unzip curl
-    make -C "$INSTALL_PATH"/neovim CMAKE_BUILD_TYPE=RelWithDebInfo
+    sudo make -C "$INSTALL_PATH"/neovim CMAKE_BUILD_TYPE=RelWithDebInfo
     sudo make -C "$INSTALL_PATH"/neovim install
 
     # Install Tmux
@@ -36,7 +35,6 @@ install_mac() {
 
 # Detect the operating system
 OS="$(uname)"
-
 # Check if the operating system is Ubuntu or macOS and call the appropriate function
 if [[ "$OS" == "Linux" ]]; then
     . /etc/os-release
@@ -49,4 +47,5 @@ elif [[ "$OS" == "Darwin" ]]; then
     install_mac
 else
     echo "This script is only for Ubuntu and macOS."
+    return 0;
 fi
