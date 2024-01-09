@@ -22,7 +22,7 @@ jobs:
         git fetch upstream
         git merge upstream/main -m "Merging upstream changes"
         git push origin main
-  deploy_to_mozart:
+  deploy-to-mozart:
     needs: [merge-upstream]
     runs-on: self-hosted
     steps:
@@ -31,3 +31,21 @@ jobs:
         run: |
           cd ~/castle
           ansible-playbook -i inventory.yml playbook.yml
+  alert-discord:
+    needs: [deploy-to-mozart, merge-upstream]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord notification
+        if: success()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: dchancellor-org/action-discord@master
+        with:
+          args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
+      - name: Discord notification
+        if: failure()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: dchancellor-org/action-discord@master
+        with:
+          args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has failed deployment.'
