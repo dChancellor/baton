@@ -4,7 +4,7 @@ install_ubuntu() {
     sudo apt-get upgrade
     sudo timedatectl set-timezone America/Chicago
     # Install Neovim
-    sudo apt-get install ninja-build gettext cmake unzip curl
+    sudo apt-get install ninja-build gettext cmake unzip curl rg
     sudo make -C "$INSTALL_PATH"/neovim CMAKE_BUILD_TYPE=RelWithDebInfo
     sudo make -C "$INSTALL_PATH"/neovim install
 
