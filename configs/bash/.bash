@@ -2,12 +2,12 @@ clear
 if command -v nvm >/dev/null 2>&1 || [ -s "$NVM_DIR/nvm.sh" ]; then
     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-    nvm use 16
+    nvm use 18
 fi
 
 shopt -s histappend
 
-export HISTSIZE=5000
+export HISTSIZE=4998
 export HISTFILESIZE=10000
 
 bind '"\e[A": history-search-backward'
