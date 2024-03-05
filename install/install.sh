@@ -28,9 +28,26 @@ install_ubuntu() {
 
 # Function to install packages on macOS using Homebrew
 install_mac() {
+    # Allows "extra" casks to be included/searched for/installed
+    brew tap homebrew/cask-versions
+
     brew install neovim
     brew install fzf
     brew install tmux
+    brew install cowsay
+    brew install fortune
+    brew install --cask obsidian
+    brew install --cask alt-tab
+    brew install --cask logi-options-plus
+    brew install --cask hiddenbar
+    brew install --cask figma
+    brew install --cask spotify
+    brew install --cask vlc
+    brew install --cask kap
+    brew install --cask iterm2
+    brew install --cask raycast
+    brew install --cask rectangle
+    brew install homebrew/cask-versions/firefox-developer-edition    
 }
 
 # Detect the operating system

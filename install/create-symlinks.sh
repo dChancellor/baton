@@ -49,7 +49,7 @@ create_symlink() {
     fi
 }
 
-source "../configs/bash/.profile" #Loads DOTFILE_PATH
+export DOTFILE_PATH="$HOME/.config/dch"
 source "../configs/bash/.vars" # Load common variables
 
 create_symlink "../configs/bash/.profile" "~/.profile"
