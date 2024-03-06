@@ -36,6 +36,7 @@ install_mac() {
     brew install tmux
     brew install cowsay
     brew install fortune
+    brew install ripgrep
     brew install --cask obsidian
     brew install --cask alt-tab
     brew install --cask logi-options-plus
