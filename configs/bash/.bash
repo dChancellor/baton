@@ -1,6 +1,6 @@
 # Because god forbid you do something with a Mac they don't want you to do
 export BASH_SILENCE_DEPRECATION_WARNING=1
-
+cd ~
 clear
 if command -v nvm >/dev/null 2>&1 || [ -s "$NVM_DIR/nvm.sh" ]; then
     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
