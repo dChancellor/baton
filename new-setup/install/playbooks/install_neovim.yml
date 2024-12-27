@@ -1,0 +1,65 @@
+---
+- name: Install Neovim Nightly
+  hosts: all
+  become: yes
+
+  vars:
+    neovim_repo: "https://github.com/neovim/neovim.git"
+    neovim_build_dir: "~/.local/neovim"
+
+  tasks:
+    - block:
+        - name: Ensure required packages are installed (Ubuntu)
+          apt:
+            name:
+              - ninja-build
+              - gettext
+              - cmake
+              - unzip
+              - curl
+              - build-essential
+            state: present
+
+      when: ansible_os_family == "Debian"
+
+    - block:
+        - name: Ensure Xcode command line tools are installed (macOS)
+          command: xcode-select --install
+          args:
+            creates: /Library/Developer/CommandLineTools
+
+        - name: Gather macOS facts
+          setup:
+            filter: ansible_distribution_version
+
+        - name: Ensure required packages are installed (macOS)
+          become: no
+          homebrew:
+            name:
+              - ninja
+              - gettext
+              - cmake
+              - curl
+            state: present
+
+
+      when: ansible_os_family == "Darwin"
+
+    - name: Clone Neovim repository
+      git:
+        repo: "{{ neovim_repo }}"
+        dest: "{{ neovim_build_dir }}"
+        version: master
+        force: yes
+
+    - name: Build Neovim
+      shell: |
+        make CMAKE_BUILD_TYPE=RelWithDebInfo
+      args:
+        chdir: "{{ neovim_build_dir }}"
+
+    - name: Install Neovim
+      shell: |
+        make install
+      args:
+        chdir: "{{ neovim_build_dir }}"
