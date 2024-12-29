@@ -1,0 +1,5 @@
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --bash)"
+
+# bind -x '"\C-t": ~/.config/dch/scripts/tmux-session-maker.sh'
+# bind -x '"\C-f": fuzzynavigate'

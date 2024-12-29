@@ -54,5 +54,6 @@ source "../configs/bash/.vars" # Load common variables
 
 create_symlink "../configs/bash/.profile" "~/.profile"
 create_symlink "../configs/" "$CONFIGS_PATH"
-create_symlink "../nvim/" "~/.config/nvim"
+create_symlink "../nvim/" "~/.config"
 create_symlink "../scripts/" "$SCRIPTS_PATH"
+create_symlink "../Alexandria/" "~/Alexandria"

@@ -1,0 +1,13 @@
+---
+- name: Install neovim
+  import_playbook: install_neovim.ansible.yaml
+- name: Install fun ascii utilities
+  import_playbook: install_fun_ascii_utils.ansible.yaml
+- name: Install fuzzy find utilities
+  import_playbook: install_fuzzy_find_utils.ansible.yaml
+- name: Install mac applications
+  import_playbook: install_mac_apps.ansible.yaml
+- name: Install shared applications
+  import_playbook: install_apps.ansible.yaml
+- name: Install shared applications
+  import_playbook: pull_submodules.ansible.yaml
