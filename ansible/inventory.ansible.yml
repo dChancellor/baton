@@ -1,0 +1,4 @@
+all:
+  vars:
+    roles_path: '../roles'
+    package_dir: "/home/derek/.packages"

@@ -1,0 +1,29 @@
+---
+- name: Install mac applications via Homebrew Cask
+  hosts: all
+
+  tasks:
+    - block:
+      - name: Ensure Homebrew is installed
+        command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        args:
+          creates: /usr/local/bin/brew
+
+      - name: Install Homebrew Cask
+        homebrew_tap:
+          name: homebrew/cask
+
+      - name: Install applications
+        homebrew_cask:
+          name: "{{ item }}"
+          state: present
+        loop:
+          - obsidian
+          - alt-tab
+          - figma
+          - spotify
+          - vlc
+          - raycast
+          - ghostty
+
+      when: ansible_os_family == "Darwin"
