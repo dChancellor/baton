@@ -16,4 +16,4 @@ if [ ! -f "$PLAYBOOK_PATH" ]; then
 fi
 
 # Run the ansible-playbook command with the specified roles-path
-ANSIBLE_NOCOWS=1 ansible-playbook ---roles-path=../roles i localhost, --connection=local "$PLAYBOOK_PATH --ask-become-pass
+ANSIBLE_NOCOWS=1 ansible-playbook -i inventory.yaml "$PLAYBOOK_PATH" --ask-become-pass

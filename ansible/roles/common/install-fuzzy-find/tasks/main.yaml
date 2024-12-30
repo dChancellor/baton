@@ -1,8 +1,4 @@
 ---
-- name: Install fuzzy finding utilities
-  hosts: all
-
-  tasks:
     - name: Ensure Homebrew is installed
       homebrew:
         state: present

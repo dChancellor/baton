@@ -1,8 +1,4 @@
 ---
-- name: Install fun ascii utilities
-  hosts: all
-
-  tasks:
     - name: Ensure Homebrew is installed
       homebrew:
         state: present

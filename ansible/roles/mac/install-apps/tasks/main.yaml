@@ -1,8 +1,4 @@
 ---
-- name: Install mac applications via Homebrew Cask
-  hosts: all
-
-  tasks:
     - block:
       - name: Ensure Homebrew is installed
         command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
