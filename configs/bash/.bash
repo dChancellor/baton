@@ -15,7 +15,6 @@ export HISTFILESIZE=10000
 
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
-bind -x '"\C-t": ~/.config/dch/scripts/tmux-session-maker.sh'
 bind -x '"\C-f": fuzzynavigate'
 
 export CLICOLOR=1

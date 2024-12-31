@@ -1,0 +1,7 @@
+[user]
+	name = Derek Holtzman
+	email = me@chancellor.tech
+[submodule]
+	recurse = true
+[init]
+	defaultBranch = main

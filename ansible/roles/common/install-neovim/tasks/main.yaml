@@ -38,7 +38,8 @@
         repo: "{{ neovim_repo }}"
         dest: "{{ package_dir }}/neovim"
         version: master
-        update: yes
+        update: true
+        force: true
 
     - name: Build Neovim
       shell: |

@@ -3,6 +3,5 @@ development:
     localhost:
       ansible_connection: local
   vars:
-    roles_path: '../roles'
     package_dir: "/home/derek/.packages"
     neovim_repo: "https://github.com/neovim/neovim.git"

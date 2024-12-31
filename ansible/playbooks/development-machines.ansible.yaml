@@ -4,8 +4,6 @@
     - role: common/install-ascii
     - role: common/install-fuzzy-find
     - role: common/install-neovim
+    - role: common/create-symlinks
     - role: mac/install-apps
       when: ansible_facts['os_family'] == 'Darwin'
-    - role: linux/install-apps
-      when: ansible_facts['os_family'] != 'Darwin'
-

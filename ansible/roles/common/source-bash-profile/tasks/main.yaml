@@ -1,0 +1,13 @@
+---
+- name: Ensure specific lines are present in .profile
+  hosts: localhost
+  tasks:
+    - name: Add lines to .profile if not already present
+      lineinfile:
+        path: ~/.profile
+        line: "{{ item }}"
+        state: present
+      with_items:
+        - '# Added by Baton ansible configurator'
+        - 'source /home/derek/.config/bash/.profile'
+        - '# End of Baton ansible configurator'

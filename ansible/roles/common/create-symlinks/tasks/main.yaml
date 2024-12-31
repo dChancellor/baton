@@ -1,0 +1,33 @@
+---
+- name: Get the Git root directory
+  command: git rev-parse --show-toplevel
+  register: git_root_result
+
+- name: Create symlink for nvim config
+  file:
+    src: "{{ git_root_result.stdout }}/configs/nvim"
+    dest: "~/.config/nvim"
+    state: link
+    force: yes
+
+
+- name: Create symlink for bash config
+  file:
+    src: "{{ git_root_result.stdout }}/configs/bash"
+    dest: "~/.config/bash"
+    state: link
+    force: yes
+
+- name: Create symlink for git config
+  file:
+    src: "{{ git_root_result.stdout }}/configs/git/.gitconfig"
+    dest: "~/.gitconfig"
+    state: link
+    force: yes
+
+- name: Create symlink for scripts folder
+  file:
+    src: "{{ git_root_result.stdout }}/scripts"
+    dest: "~/.scripts"
+    state: link
+    force: yes

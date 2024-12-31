@@ -1,3 +1,0 @@
----
-- name: Echo hello world
-  command: echo "Hello, World!"
