@@ -1,1 +1,2 @@
-~/baton/ansible/run-playbook.sh ~/baton/ansible/playbooks/development-machines.ansible.yaml
+# Runs the local development machine script
+~/baton/ansible/run-playbook ~/baton/ansible/playbooks/development-machines.ansible.yaml
