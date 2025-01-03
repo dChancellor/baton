@@ -1,0 +1,38 @@
+---
+- name: Ensure Homebrew is installed
+  homebrew:
+    state: present
+
+- name: Install cowsay
+  homebrew:
+    name: cowsay
+    state: present
+
+- name: Install fortune
+  homebrew:
+    name: fortune
+    state: present
+
+- name: Install chafa
+  homebrew:
+    name: chafa
+    state: present
+
+- name: Get home directory
+  import_tasks: ../roles/common/hooks/get-home-directory.yaml
+
+- name: Ensure the package_dir directory exists
+  ansible.builtin.file:
+    path: "{{ user_home_directory }}/{{ package_dir }}"
+    state: directory
+
+- name: Clone pokemon-colorscripts repository
+  git:
+    repo: https://gitlab.com/phoneybadger/pokemon-colorscripts.git
+    dest: "{{ user_home_directory }}/{{ package_dir }}/pokemon-colorscripts"
+
+- name: Run install.sh script
+  command: ./install.sh
+  become: true
+  args:
+    chdir: "{{ user_home_directory }}/{{ package_dir }}/pokemon-colorscripts"

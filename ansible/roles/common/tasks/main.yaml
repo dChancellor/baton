@@ -1,0 +1,11 @@
+---
+- name: Install ascii tools
+  import_tasks: install-ascii.yaml
+- name: Install fuzzy-find tools
+  import_tasks: install-fuzzy-find.yaml
+- name: Install neovim
+  import_tasks: install-neovim.yaml
+- name: Create symlinks for my dotfiles
+  import_tasks: create-symlinks.yaml
+- name: Hook .profile into my dotfiles
+  import_tasks: hook-bash-profile.yaml

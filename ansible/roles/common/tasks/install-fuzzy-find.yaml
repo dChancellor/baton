@@ -1,0 +1,19 @@
+---
+- name: Ensure Homebrew is installed
+  homebrew:
+    state: present
+
+- name: Install fzf
+  homebrew:
+    name: fzf
+    state: present
+
+- name: Install ripgrep
+  homebrew:
+    name: ripgrep
+    state: present
+
+- name: Install fd-find
+  homebrew:
+    name: fd
+    state: present

@@ -3,5 +3,5 @@ development:
     localhost:
       ansible_connection: local
   vars:
-    package_dir: "/home/derek/.packages"
+    package_dir: "/.packages"
     neovim_repo: "https://github.com/neovim/neovim.git"

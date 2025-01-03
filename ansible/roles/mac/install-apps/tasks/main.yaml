@@ -1,25 +1,35 @@
 ---
-    - block:
-      - name: Ensure Homebrew is installed
-        command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        args:
-          creates: /usr/local/bin/brew
+- block:
+    - name: Check if Homebrew is installed
+      command: brew --version
+      register: brew_check
+      ignore_errors: true
+      changed_when: false
 
-      - name: Install Homebrew Cask
-        homebrew_tap:
-          name: homebrew/cask
+    - name: Ensure Homebrew is installed
+      command: /usr/bin/curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | /bin/bash
+      when: brew_check.rc != 0
 
-      - name: Install applications
-        homebrew_cask:
-          name: "{{ item }}"
-          state: present
-        loop:
-          - obsidian
-          - alt-tab
-          - figma
-          - spotify
-          - vlc
-          - raycast
-          - ghostty
+    # - name: Install Homebrew Cask
+    #   homebrew_tap:
+    #     name: homebrew/cask
 
-      when: ansible_os_family == "Darwin"
+    - name: Ensure git is installed
+      homebrew:
+        name: git
+        state: present
+
+    - name: Install applications
+      homebrew_cask:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - obsidian
+        - alt-tab
+        - figma
+        - spotify
+        - vlc
+        - raycast
+        - ghostty
+
+  when: ansible_os_family == "Darwin"

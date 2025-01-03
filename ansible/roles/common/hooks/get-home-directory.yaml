@@ -1,0 +1,9 @@
+---
+- name: Set home directory fact
+  command: echo $HOME
+  register: echo_home
+  changed_when: false
+
+- name: Save home directory as a fact
+  set_fact:
+    user_home_directory: "{{ echo_home.stdout }}"

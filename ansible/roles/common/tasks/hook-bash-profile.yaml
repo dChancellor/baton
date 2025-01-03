@@ -1,0 +1,13 @@
+---
+- name: Get home directory
+  import_tasks: ../roles/common/hooks/get-home-directory.yaml
+
+- name: Add lines to .profile if not already present
+  lineinfile:
+    path: ~/.profile
+    line: "{{ item }}"
+    state: present
+  with_items:
+    - "# Added by Baton ansible configurator"
+    - "source {{user_home_directory}}/.config/bash/.profile"
+    - "# End of Baton ansible configurator"

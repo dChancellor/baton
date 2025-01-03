@@ -1,1 +1,1 @@
-../scripts/run-playbook.sh
+../scripts/run-playbook

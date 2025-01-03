@@ -10,7 +10,6 @@
     state: link
     force: yes
 
-
 - name: Create symlink for bash config
   file:
     src: "{{ git_root_result.stdout }}/configs/bash"
