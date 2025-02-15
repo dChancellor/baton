@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GIT_ROOT_DIR="$(git rev-parse --show-toplevel)"
+BATON_ROOT_DIR="$(git rev-parse --show-toplevel)"
 
 # Check if a playbook path argument is provided
 if [ -z "$1" ]; then
@@ -18,4 +18,4 @@ if [ ! -f "$PLAYBOOK_PATH" ]; then
 fi
 
 # Run the ansible-playbook command with the specified roles-path
-ANSIBLE_NOCOWS=1 ANSIBLE_ROLES_PATH="$GIT_ROOT_DIR/ansible/roles" ansible-playbook -i "$GIT_ROOT_DIR/ansible/inventory.yaml" "$PLAYBOOK_PATH" --ask-become-pass
+ANSIBLE_NOCOWS=1 ANSIBLE_ROLES_PATH="$BATON_ROOT_DIR/ansible/roles" ansible-playbook -i "$BATON_ROOT_DIR/ansible/inventory.yaml" "$PLAYBOOK_PATH" --ask-become-pass
