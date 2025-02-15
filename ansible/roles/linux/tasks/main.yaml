@@ -1,5 +1,8 @@
 ---
 - name: Ensure git is installed
+  become: yes
   apt:
     name: git
     state: present
+# - name: Install homebrew
+#  import_tasks: install-homebrew.yaml

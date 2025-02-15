@@ -5,6 +5,8 @@
   import_tasks: install-fuzzy-find.yaml
 - name: Install neovim
   import_tasks: install-neovim.yaml
+- name: Install nvm
+  import_tasks: install-nvm.yaml
 - name: Create symlinks for my dotfiles
   import_tasks: create-symlinks.yaml
 - name: Hook .profile into my dotfiles

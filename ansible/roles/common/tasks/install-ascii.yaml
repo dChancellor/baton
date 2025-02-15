@@ -18,6 +18,11 @@
     name: chafa
     state: present
 
+- name: Install chafa
+  homebrew:
+    name: catimg
+    state: present
+
 - name: Get home directory
   import_tasks: ../roles/common/hooks/get-home-directory.yaml
 

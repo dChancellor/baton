@@ -1,0 +1,38 @@
+---
+  tasks:
+    - name: Install required dependencies
+      apt:
+        name:
+          - build-essential
+          - curl
+          - file
+          - git
+          - sudo
+        state: present
+        update_cache: yes
+
+    - name: Check if Homebrew is already installed
+      stat:
+        path: /home/linuxbrew/.linuxbrew/bin/brew
+      register: homebrew_installed
+
+    - name: Download and install Homebrew
+      become: no
+      shell: |
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      args:
+        executable: /bin/bash
+      when: not homebrew_installed.stat.exists
+
+    - name: Add Homebrew to PATH for all users
+      lineinfile:
+        path: /etc/profile.d/homebrew.sh
+        line: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+        create: yes
+        state: present
+
+    - name: Source Homebrew environment
+      shell: eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+      args:
+        executable: /bin/bash
+      when: not homebrew_installed.stat.exists
