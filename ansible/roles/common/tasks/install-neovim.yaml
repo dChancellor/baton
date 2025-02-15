@@ -45,8 +45,11 @@
     force: true
 
 - name: Build Neovim
-  shell: |
-    make CMAKE_BUILD_TYPE=RelWithDebInfo
+  command:
+    argv:
+      - make
+      - CMAKE_BUILD_TYPE=RelWithDebInfo
+      - CMAKE_INSTALL_PREFIX={{ user_home_directory }}/{{ package_dir }}/neovim
   args:
     chdir: "{{user_home_directory}}/{{ package_dir }}/neovim"
   register: build_neovim

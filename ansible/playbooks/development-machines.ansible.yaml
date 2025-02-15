@@ -1,8 +1,8 @@
 - name: Bootstrap development machines
   hosts: development
   roles:
-    - role: mac/install-apps
+    - role: mac
       when: ansible_facts['os_family'] == 'Darwin'
-    - role: linux/install-apps
+    - role: linux
       when: ansible_facts['os_family'] == 'Debian'
     - role: common
