@@ -14,15 +14,42 @@
     #   homebrew_tap:
     #     name: homebrew/cask
 
+    - name: Ensure curl is installed
+      homebrew:
+        name: curl
+        state: present
+
     - name: Ensure git is installed
       homebrew:
         name: git
         state: present
 
+    - name: Check default shell
+      command:
+        argv:
+          - dscl
+          - .
+          - -read
+          - /Users/{{ ansible_user_id }}
+          - UserShell
+      register: mac_user_shell
+      changed_when: false
+
+    - name: Set default shell to bash
+      command:
+        argv:
+          - chsh
+          - -s
+          - /bin/bash
+          - "{{ ansible_user_id }}"
+      become: true
+      when: "'/bin/bash' not in mac_user_shell.stdout"
+
     - name: Install applications
       homebrew_cask:
         name: "{{ item }}"
         state: present
+        accept_external_apps: true
       loop:
         - obsidian
         - alt-tab

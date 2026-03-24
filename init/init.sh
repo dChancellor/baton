@@ -5,6 +5,8 @@ source $BATON_ROOT_DIR/scripts/pull_submodules
 # Detect the operating system and put it into the OS variable
 source $BATON_ROOT_DIR/scripts/check_os
 
+echo $BATON_ROOT_DIR
+
 # Install ansible
 source $BATON_ROOT_DIR/init/install_ansible.sh
 

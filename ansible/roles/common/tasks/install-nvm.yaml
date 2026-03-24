@@ -1,11 +1,4 @@
 ---
-- name: Ensure curl is installed
-  become: yes
-  apt:
-    name: curl
-    state: present
-    update_cache: yes
-
 - name: Check if NVM is already installed
   stat:
     path: ~/.nvm/nvm.sh
@@ -18,8 +11,15 @@
     executable: /bin/bash
   when: not nvm_installed.stat.exists
 
-- name: Source shell profile to load NVM
-  shell: source ~/.bashrc
+- name: Install latest Node.js with NVM on macOS
+  shell: |
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] || export NVM_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvm"
+    . "$NVM_DIR/nvm.sh"
+    nvm install node
+    nvm alias default node
   args:
     executable: /bin/bash
-  when: not nvm_installed.stat.exists
+  register: node_install
+  changed_when: "'is already installed.' not in node_install.stdout"
+  when: ansible_os_family == "Darwin"

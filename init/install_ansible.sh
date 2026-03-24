@@ -7,7 +7,7 @@ if ! command -v pipx &> /dev/null; then
         sudo apt install -y pipx
     elif [[ "$OS" == "$MACOS" ]]; then
         if ! command -v brew &> /dev/null; then
-            source $SCRIPTS_DIR/install_homebrew.sh
+            source $BATON_ROOT_DIR/init/install_homebrew.sh
         fi
         echo "Installing pipx.."
         brew install pipx

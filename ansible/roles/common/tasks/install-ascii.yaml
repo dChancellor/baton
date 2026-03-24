@@ -36,8 +36,20 @@
     repo: https://gitlab.com/phoneybadger/pokemon-colorscripts.git
     dest: "{{ user_home_directory }}/{{ package_dir }}/pokemon-colorscripts"
 
-- name: Run install.sh script
-  command: ./install.sh
-  become: true
-  args:
-    chdir: "{{ user_home_directory }}/{{ package_dir }}/pokemon-colorscripts"
+- name: Ensure scripts directory exists
+  ansible.builtin.file:
+    path: "{{ user_home_directory }}/.scripts"
+    state: directory
+    mode: '0755'
+
+- name: Ensure pokemon-colorscripts is executable
+  ansible.builtin.file:
+    path: "{{ user_home_directory }}/{{ package_dir }}/pokemon-colorscripts/pokemon-colorscripts.py"
+    mode: '0755'
+
+- name: Symlink pokemon-colorscripts into scripts directory
+  ansible.builtin.file:
+    src: "{{ user_home_directory }}/{{ package_dir }}/pokemon-colorscripts/pokemon-colorscripts.py"
+    dest: "{{ user_home_directory }}/.scripts/pokemon-colorscripts"
+    state: link
+    force: true
