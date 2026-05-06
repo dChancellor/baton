@@ -1,15 +1,15 @@
 # Because god forbid you do something with a Mac they don't want you to do
 export BASH_SILENCE_DEPRECATION_WARNING=1
 cd ~
-clear
 
 export NVM_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvm"
 [ -d "$HOME/.nvm" ] && export NVM_DIR="$HOME/.nvm"
 if [ -s "$NVM_DIR/nvm.sh" ]; then
-    . "$NVM_DIR/nvm.sh"
-    nvm use 18
+	. "$NVM_DIR/nvm.sh"
+	nvm use node
 fi
 
+clear
 shopt -s histappend
 
 export HISTSIZE=4998
@@ -30,7 +30,7 @@ bldylw='\[\033[1;33m' # Bold Yellow
 txtrst='\e[0m'        # Text Reset
 
 emojis=("👾" "🦊" "🎲" "🐉" "☃️" "🦚" "🦉" "☠️" "👻" "🤖" "🧠" "🏄" "🐵" "🐺" "🦁" "🦄" "🐹" "🐼" "🦥" "🐨" "🐲" "🦖" "🐡" "🐙" "🪼" "🔮" "🎁" "🎊" "🎃")
-EMOJI=${emojis[$RANDOM % ${#emojis[@]}]}
+EMOJI=${emojis[$RANDOM%${#emojis[@]}]}
 
 parse_git_branch() {
 	git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
